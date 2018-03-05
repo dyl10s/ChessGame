@@ -1,11 +1,13 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -52,17 +54,39 @@ public class ChessPanel extends JPanel {
 
 	// method that updates the board
 	private void displayBoard() {
-
+		
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[x].length; y++) {
 				if (model.pieceAt(x, y) == null){
 					board[x][y].setText("");
+					board[x][y].setIcon(null);
 				}else{
-					board[x][y].setText(model.pieceAt(x, y).type());	
+					
+					String imgName1 = model.pieceAt(x, y).type();
+					String imgName2 = "";
+					
+					if (model.pieceAt(x, y).player() == Player.BLACK){
+						imgName2 = "_Black";
+					}else{
+						imgName2 = "_White";
+					}
+					
+					board[x][y].setIcon(new ImageIcon(imgName1 + imgName2 + ".png"));
+					board[x][y].setText("");
+					
 				}
+		
+				if (x % 2 == 1 && y % 2 == 1){
+					board[x][y].setBackground(Color.gray);
+				}else if (x % 2 == 0 && y % 2 == 0){
+					board[x][y].setBackground(Color.gray);
+				}else{
+					board[x][y].setBackground(Color.lightGray);
+				}
+				
 			}
 		}
-
+		
 	}
 
 	// add other helper methods as needed
