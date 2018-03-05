@@ -8,10 +8,32 @@ public ChessModel() {
   
 	//8x8 Chess board
 	board = new IChessPiece[8][8];
-	board[5][5] = new Knight(player.BLACK);
-	board[1][3] = new Knight(player.WHITE);
-	board[1][7] = new Bishop(player.WHITE);
-	board[1][1] = new King(player.WHITE);
+	
+	player = Player.WHITE;
+	
+	for (int x = 0; x < 8; x++){
+		//board[x][1] = new Pawn(player.BLACK);
+		//board[x][6] = new Pawn(player.WHITE);
+	}
+	
+	board[1][0] = new Knight(player.BLACK);
+	board[6][0] = new Knight(player.BLACK);
+	board[2][0] = new Bishop(player.BLACK);
+	board[5][0] = new Bishop(player.BLACK);
+	board[4][0] = new King(player.BLACK);
+	//board[0][0] = new Rook(player.BLACK);
+	//board[7][0] = new Rook(player.BLACK);
+	//board[3][0] = new Queen(player.BLACK);
+	
+	board[1][7] = new Knight(player.WHITE);
+	board[6][7] = new Knight(player.WHITE);
+	board[2][7] = new Bishop(player.WHITE);
+	board[5][7] = new Bishop(player.WHITE);
+	board[4][7] = new King(player.WHITE);
+	//board[0][7] = new Rook(player.BLACK);
+	//board[7][7] = new Rook(player.BLACK);	
+	//board[3][0] = new Queen(player.WHITE);
+	
 }
 
 public boolean isComplete() {
@@ -48,5 +70,9 @@ public int numColumns() {
 public IChessPiece pieceAt(int row, int column) {
 	return board[row][column];
 }
-// add other public or helper methods as needed
+
+public void nextPlayer(){
+	player = player.next();
+}
+
 }

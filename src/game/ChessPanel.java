@@ -77,7 +77,7 @@ public class ChessPanel extends JPanel {
 					if (event.getSource() == board[x][y]){
 						
 						if (hasSelected == false){
-							if (model.pieceAt(x, y) != null){
+							if (model.pieceAt(x, y) != null && model.currentPlayer() == model.pieceAt(x, y).player()){
 								m.fromRow = x;
 								m.fromColumn = y;
 								hasSelected = true;
@@ -88,6 +88,7 @@ public class ChessPanel extends JPanel {
 							hasSelected = false;
 							if (model.isValidMove(m)){
 								model.move(m);
+								model.nextPlayer();
 							}
 						}
 						
