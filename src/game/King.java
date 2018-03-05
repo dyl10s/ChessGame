@@ -20,9 +20,7 @@ public class King extends ChessPiece{
         int changeY = Math.abs(move.fromColumn - move.toColumn);
         
         if (changeX < 2 && changeY < 2){
-        	if (board[move.toRow][move.toColumn] == null){
-        		valid = true;
-        	}
+        	valid = true;
         }
         
         return valid;

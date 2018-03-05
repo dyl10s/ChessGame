@@ -20,15 +20,11 @@ public class Knight extends ChessPiece{
         int changeY = Math.abs(move.fromColumn - move.toColumn);
         
         if (changeX == 2 && changeY == 1){
-        	if (board[move.toRow][move.toColumn] == null){
-               	valid = true;	
-        	}
+        	valid = true;
         }
         
         if (changeX == 1 && changeY == 2){
-        	if (board[move.toRow][move.toColumn] == null){
-               	valid = true;	
-        	}
+        	valid = true;
         }
         
         return valid;
