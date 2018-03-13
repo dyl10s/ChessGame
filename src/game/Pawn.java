@@ -1,67 +1,108 @@
 package game;
 
-public class Pawn extends ChessPiece
-{
-    public Pawn(Player player) {
-        super(player);
-    }
+public class Pawn extends ChessPiece {
 
-    public String type() {
-        return "Pawn";
-    }
+	public Pawn(Player player) {
+		super(player);
+	}
 
-    public boolean isValidMove(Move move,IChessPiece[][] board) {
-        if (!super.isValidMove(move,board))
-            return false;
-        boolean valid = false;
-        
-        if (board[move.fromRow][move.fromColumn].player() == Player.BLACK) {
-            // checks to see if the piece is being moved diagonally down and over one space
-            if (((move.toRow - 1 == move.fromRow) && (move.toColumn + 1 == move.fromColumn))
-            || ((move.toRow - 1 == move.fromRow) && (move.toColumn - 1 == move.fromColumn)))
-            // checks to see if this piece is taking another player's piece
-                if (board[move.toRow][move.toColumn] != null)
-                    valid = true;
+	@Override
+	public String type() {
+		return "Pawn";
 
-            // checks to see if this piece is a black pawn in row 2
-            if (move.fromRow == 1)
-            // checks to see if this piece is being moved 2 spaces forward
-                if ((move.toColumn == move.fromColumn) && (move.toRow == 3))
-                // checks to see if this piece has a clear path
-                    if ((board[2][move.fromColumn]) == null && (board[3][move.fromColumn]) == null)
-                        valid = true;
+	}
 
-            // checks to see if this piece is being moved down one row
-            if ((move.toColumn == move.fromColumn) && (move.toRow - 1 == move.fromRow))
-            // checks to see if this piece has a clear path
-                if ((board[move.toRow][move.toColumn]) == null)
-                    valid = true;
-        }
+	@Override
+	public boolean isValidMove(Move move, IChessPiece[][] board) {
 
-        // checks to see if it is white's turn
-        else if (board[move.fromRow][move.fromColumn].player() == Player.WHITE) {
-            // checks to see if the piece is being moved diagonally up and over one space
-            if (((move.toRow + 1 == move.fromRow) && (move.toColumn + 1 == move.fromColumn))
-            || ((move.toRow + 1 == move.fromRow) && (move.toColumn - 1 == move.fromColumn)))
-            // checks to see if this piece is taking another player's piece
-                if (board[move.toRow][move.toColumn] != null)
-                    valid = true;
+		// --- Variable Declarations -------------------------//
 
-            // checks to see if this piece is a white pawn in row 7
-            if (move.fromRow == 6)
-            // checks to see if this piece is being moved 2 spaces forward
-                if ((move.toColumn == move.fromColumn) && (move.toRow == 4))
-                // checks to see if this piece has a clear path
-                    if ((board[5][move.fromColumn]) == null && (board[4][move.fromColumn]) == null)
-                        valid = true;
+		/* The result of the computation. */
+		boolean result = false;
 
-            // checks to see if this piece is being moved up one row
-            if ((move.toColumn == move.fromColumn) && (move.toRow + 1 == move.fromRow))
-            // checks to see if this piece has a clear path
-                if ((board[move.toRow][move.toColumn]) == null)
-                    valid = true;
-        }
-        return valid;
-    }
-}
+		/* The current row position of the pawn. */
+		int row;
 
+		/* The current column position of the pawn. */
+		int col;
+
+		/* The move to row position. */
+		int toRow = move.toRow;
+
+		/* The move to column position. */
+		int toCol = move.toColumn;
+
+		// --- Main Routine -----------------------------------//
+
+		// Perform the generic background check.
+		boolean validmove = super.isValidMove(move, board);
+
+		// continue with checking for piece specifics.
+		if (validmove) {
+			// Get row position values.
+			row = move.fromRow;
+			col = move.fromColumn;
+			toRow = move.toRow;
+			toCol = move.toColumn;
+
+			// Determine which direction we should be moving.
+			if (player() == Player.WHITE) {
+
+				// Check for a first move instance.
+				if (firstMove && col == toCol && toRow == row - 2) {
+					result = true;
+					// Make sure if the first move cleared that we turn it off.
+					firstMove = false;
+				}
+
+				// If they called a north west move.
+				else if (toRow == row - 1 && toCol == col - 1) {
+					// Check that the opponent has a piece there.
+					if (!(board[toRow][toCol] == null || board[toRow][toCol].player().equals(Player.WHITE)))
+						result = true;
+				}
+
+				// If they called a north east move.
+				else if (toRow == row - 1 && toCol == col + 1) {
+					// Check that the opponent has a piece there.
+					if (!(board[toRow][toCol] == null || board[toRow][toCol].player().equals(Player.WHITE)))
+						result = true;
+				}
+
+				// If they called a due north move.
+				else if (toRow == row - 1 && toCol == col && board[toRow][toCol] == null)
+					result = true;
+			}
+
+			else {
+				// -- Check what move call was performed. -- //
+
+				// Check for a first move instance.
+				if (firstMove && col == toCol && toRow == row + 2) {
+					result = true;
+					// Make sure if the first move cleared that we turn it off.
+					firstMove = false;
+				}
+
+				// If they called a north west move.
+				else if (toRow == row + 1 && toCol == col - 1) {
+					// Check that the opponent has a piece there.
+					if (!(board[toRow][toCol] == null || board[toRow][toCol].player().equals(Player.BLACK)))
+						result = true;
+				}
+
+				// If they called a north east move.
+				else if (toRow == row + 1 && toCol == col + 1) {
+					// Check that the opponent has a piece there.
+					if (!(board[toRow][toCol] == null || board[toRow][toCol].player().equals(Player.BLACK)))
+						result = true;
+				}
+
+				// If they called a due north move.
+				else if (toRow == row + 1 && toCol == col && board[toRow][toCol] == null)
+					result = true;
+			}
+		}
+		return result;
+
+	}
