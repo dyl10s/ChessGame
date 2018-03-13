@@ -2,6 +2,8 @@ package game;
 
 public class Pawn extends ChessPiece {
 
+	public boolean firstMove = true;
+	
 	public Pawn(Player player) {
 		super(player);
 	}
@@ -16,7 +18,7 @@ public class Pawn extends ChessPiece {
 	public boolean isValidMove(Move move, IChessPiece[][] board) {
 
 		// --- Variable Declarations -------------------------//
-
+		
 		/* The result of the computation. */
 		boolean result = false;
 
@@ -31,7 +33,9 @@ public class Pawn extends ChessPiece {
 
 		/* The move to column position. */
 		int toCol = move.toColumn;
-
+		
+		
+		
 		// --- Main Routine -----------------------------------//
 
 		// Perform the generic background check.
@@ -106,3 +110,4 @@ public class Pawn extends ChessPiece {
 		return result;
 
 	}
+}

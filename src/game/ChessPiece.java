@@ -1,4 +1,4 @@
-
+package game;
 
 public abstract class ChessPiece implements IChessPiece
 {

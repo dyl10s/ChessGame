@@ -1,5 +1,8 @@
 package game;
 
+import javax.print.attribute.standard.JobMessageFromOperator;
+import javax.swing.JOptionPane;
+
 public class ChessModel implements IChessModel {
 private IChessPiece[][] board;
 private Player player;
@@ -12,8 +15,8 @@ public ChessModel() {
 	player = Player.WHITE;
 	
 	for (int x = 0; x < 8; x++){
-		//board[x][1] = new Pawn(player.BLACK);
-		//board[x][6] = new Pawn(player.WHITE);
+		board[x][1] = new Pawn(player.BLACK);
+		board[x][6] = new Pawn(player.WHITE);
 	}
 	
 	board[1][0] = new Knight(player.BLACK);
@@ -37,7 +40,45 @@ public ChessModel() {
 }
 
 public boolean isComplete() {
- return false;
+	
+	boolean isComplete = false;
+	boolean foundSafeSpace = false;
+	
+	IChessPiece King = null;
+	int kingX = 0;
+	int kingY = 0;
+	
+	for (int x = 0; x < board.length; x++){
+		for (int y = 0; y < board[x].length; y++){
+			
+			if (board[x][y] != null){
+				if(board[x][y].player().equals(player) && board[x][y].type() == "King"){
+					King = board[x][y];
+					kingX = x;
+					kingY = y;
+				}
+			}
+			
+		}
+	}
+	
+	for (int x = 0; x < board.length; x++){
+		for (int y = 0; y < board[x].length; y++){
+			Move m = new Move(kingX, kingY, x, y);
+			if(King.isValidMove(m, board)){
+				if (InCheckWithLocation(player, x, y) == false){
+					foundSafeSpace = true;
+				}
+			}
+		}	
+	}
+	
+	
+	if (foundSafeSpace == false){
+		isComplete = true;
+	}
+	
+	return isComplete;
 }
 
 public boolean isValidMove(Move move) {
@@ -51,8 +92,79 @@ public void move(Move move) {
 
 }
 
+public boolean InCheckWithLocation(Player p, int xLoc, int yLoc){
+	
+	Move move;
+	
+	boolean inCheck = false;
+	
+	
+	for (int x = 0; x < board.length; x++){
+		for (int y = 0; y < board[x].length; y++){
+		
+			if (board[x][y] != null){
+				if (board[x][y].player().equals(p) == false){
+					
+					move = new Move(x, y, xLoc, yLoc);
+					if (board[x][y].isValidMove(move, board)){
+						inCheck = true;
+					}
+				
+				}
+			}
+			
+		}
+	}
+	
+	return inCheck;
+
+	
+}
+
 public boolean inCheck(Player p) {
- return false;
+	
+	IChessPiece King;
+	int kingX = 0;
+	int kingY = 0;
+	
+	Move move;
+	
+	boolean inCheck = false;
+	
+	
+	for (int x = 0; x < board.length; x++){
+		for (int y = 0; y < board[x].length; y++){
+			
+			if (board[x][y] != null){
+				if (board[x][y].player().equals(p) == true && board[x][y].type() == "King"){
+					
+					King = board[x][y];
+					kingX = x;
+					kingY = y;
+					
+				}	
+			}
+		}
+	}
+	
+	for (int x = 0; x < board.length; x++){
+		for (int y = 0; y < board[x].length; y++){
+		
+			if (board[x][y] != null){
+				if (board[x][y].player().equals(p) == false){
+					
+					move = new Move(x, y, kingX, kingY);
+					if (board[x][y].isValidMove(move, board)){
+						inCheck = true;
+					}
+				
+				}
+			}
+			
+		}
+	}
+	
+	return inCheck;
 }
 
 public Player currentPlayer() {
@@ -73,6 +185,12 @@ public IChessPiece pieceAt(int row, int column) {
 
 public void nextPlayer(){
 	player = player.next();
+	
+	if (isComplete()){
+		JOptionPane.showMessageDialog(null, "Winner");	
+	}else if (inCheck(player)){
+		JOptionPane.showMessageDialog(null, player.toString() + " is in check!");
+	}
 }
 
 }
