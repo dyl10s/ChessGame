@@ -1,3 +1,9 @@
+/*
+Presents the GUI, listens and reacts to user interaction
+with the chess board. Checks for valid moves, moves the pieces,
+finds the next player, and announces game status to the user
+*/
+
 package game;
 
 import java.awt.Color;
