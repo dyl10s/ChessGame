@@ -1,3 +1,6 @@
+/*A class used to control all game logic of the game of 
+chess during the users interactions with the game. */
+
 package game;
 
 public class ChessModel implements IChessModel {
