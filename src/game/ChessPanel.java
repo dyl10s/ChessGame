@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+//Constructor that creates the board and creates the panel//
 @SuppressWarnings("serial")
 public class ChessPanel extends JPanel {
 
@@ -38,7 +39,7 @@ public class ChessPanel extends JPanel {
 		this.setSize(600, 600);
 		
 		this.setLayout(gbLayout);
-		
+		//New ChessModel object//
 		model = new ChessModel();
 		board = new JButton[model.numRows()][model.numColumns()];
 
