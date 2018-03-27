@@ -2,14 +2,16 @@ package game;
 
 public class Bishop extends ChessPiece{
 
+	// The primary constructor for the bishop peice. It creates a bishop//
+	 for the given player specified.
 	public Bishop(Player player) {
 		super(player);
 	}
-
-	public String type() {
+	//Returns the type of chess piece//
+  		public String type() {
 		return "Bishop";
 	}
-	
+	//Validates that the move being chosen is accepted//
     public boolean isValidMove(Move move,IChessPiece[][] board) {
         if (!super.isValidMove(move,board))
             return false;
