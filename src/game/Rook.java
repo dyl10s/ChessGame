@@ -1,3 +1,5 @@
+/* Class for the chest piece: Rook. 
+The rook is only allowed to move in linear directions */
 package game;
 
 
