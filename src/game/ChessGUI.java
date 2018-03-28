@@ -1,3 +1,5 @@
+//A class that builds a JFrame, that contains a new ChessPanel object//
+
 package game;
 
 import javax.swing.JFrame;

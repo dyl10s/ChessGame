@@ -1,12 +1,16 @@
+/*Class that creates a piece for King. The king piece can only 
+move in a single place at a time*/
+
 package game;
 
 public class King extends ChessPiece{
-
+/*The primary constructor for the king piece. It creates a king
+ for the given player specified. */
 	public King(Player player) {
 		super(player);
 	}
 
-
+//Return type of piece//
 	public String type() {
 		return "King";
 	}

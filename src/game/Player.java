@@ -1,3 +1,4 @@
+//Player of the chest game:white and black//
 package game;
 
 public enum Player {

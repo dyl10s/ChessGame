@@ -19,7 +19,7 @@ public abstract class ChessPiece implements IChessPiece
     public Player player() {
         return owner;
     }
-    
+    //Method to verify that the requested move is valid.
     public boolean isValidMove(Move move,IChessPiece[][] board) {
        if (move.fromRow == move.toRow && move.fromColumn == move.toColumn) {
            return false;
