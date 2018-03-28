@@ -1,3 +1,6 @@
+/*Class that creates the chess peice for the queen
+The Queen is allowed to move both in straight and diagonal lines */
+
 package game;
 
 public class Queen extends ChessPiece {
