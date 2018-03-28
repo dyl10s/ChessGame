@@ -15,11 +15,17 @@ public class Bishop extends ChessPiece{
             return false;
         boolean valid = false;
         
-        int changeX = Math.abs(move.fromRow - move.toRow);
-        int changeY = Math.abs(move.fromColumn - move.toColumn);
+        int changeY = Math.abs(move.fromRow - move.toRow);
+        int changeX = Math.abs(move.fromColumn - move.toColumn);
+        
+        if(Math.abs(changeX) == 0 || Math.abs(changeY) == 0)
+        {
+        	return false;
+        }
         
         int xSign = -(move.fromRow - move.toRow) / Math.abs(changeX);
         int ySign = -(move.fromColumn - move.toColumn) / Math.abs(changeY);
+        
         
         if (changeX == changeY){
         	

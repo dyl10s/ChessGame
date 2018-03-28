@@ -1,6 +1,5 @@
 package game;
 
-import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JOptionPane;
 
 public class ChessModel implements IChessModel {
@@ -15,26 +14,26 @@ public ChessModel() {
 	player = Player.WHITE;
 	
 	for (int x = 0; x < 8; x++){
-		board[x][1] = new Pawn(player.BLACK);
-		board[x][6] = new Pawn(player.WHITE);
+		board[1][x] = new Pawn(Player.BLACK);
+		board[6][x] = new Pawn(Player.WHITE);
 	}
 	
-	board[1][0] = new Knight(player.BLACK);
-	board[6][0] = new Knight(player.BLACK);
-	board[2][0] = new Bishop(player.BLACK);
-	board[5][0] = new Bishop(player.BLACK);
-	board[4][0] = new King(player.BLACK);
-	//board[0][0] = new Rook(player.BLACK);
-	//board[7][0] = new Rook(player.BLACK);
+	board[0][1] = new Knight(Player.BLACK);
+	board[0][6] = new Knight(Player.BLACK);
+	board[0][2] = new Bishop(Player.BLACK);
+	board[0][5] = new Bishop(Player.BLACK);
+	board[0][4] = new King(Player.BLACK);
+	board[0][0] = new Rook(Player.BLACK);
+	board[0][7] = new Rook(Player.BLACK);
 	//board[3][0] = new Queen(player.BLACK);
 	
-	board[1][7] = new Knight(player.WHITE);
-	board[6][7] = new Knight(player.WHITE);
-	board[2][7] = new Bishop(player.WHITE);
-	board[5][7] = new Bishop(player.WHITE);
-	board[4][7] = new King(player.WHITE);
-	//board[0][7] = new Rook(player.BLACK);
-	//board[7][7] = new Rook(player.BLACK);	
+	board[7][1] = new Knight(Player.WHITE);
+	board[7][6] = new Knight(Player.WHITE);
+	board[7][2] = new Bishop(Player.WHITE);
+	board[7][5] = new Bishop(Player.WHITE);
+	board[7][4] = new King(Player.WHITE);
+	board[7][0] = new Rook(Player.WHITE);
+	board[7][7] = new Rook(Player.WHITE);	
 	//board[3][0] = new Queen(player.WHITE);
 	
 }
@@ -65,11 +64,13 @@ public boolean isComplete() {
 	for (int x = 0; x < board.length; x++){
 		for (int y = 0; y < board[x].length; y++){
 			Move m = new Move(kingX, kingY, x, y);
+			
 			if(King.isValidMove(m, board)){
 				if (InCheckWithLocation(player, x, y) == false){
 					foundSafeSpace = true;
 				}
 			}
+			
 		}	
 	}
 	
@@ -186,7 +187,7 @@ public IChessPiece pieceAt(int row, int column) {
 public void nextPlayer(){
 	player = player.next();
 	
-	if (isComplete()){
+	if (inCheck(player) && isComplete()){
 		JOptionPane.showMessageDialog(null, "Winner");	
 	}else if (inCheck(player)){
 		JOptionPane.showMessageDialog(null, player.toString() + " is in check!");

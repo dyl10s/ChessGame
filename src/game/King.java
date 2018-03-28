@@ -16,8 +16,8 @@ public class King extends ChessPiece{
             return false;
         boolean valid = false;
      
-        int changeX = Math.abs(move.fromRow - move.toRow);
-        int changeY = Math.abs(move.fromColumn - move.toColumn);
+        int changeY = Math.abs(move.fromRow - move.toRow);
+        int changeX = Math.abs(move.fromColumn - move.toColumn);
         
         if (changeX < 2 && changeY < 2){
         	valid = true;
