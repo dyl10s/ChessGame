@@ -3,7 +3,7 @@ package game;
 public class Bishop extends ChessPiece{
 
 	// The primary constructor for the bishop peice. It creates a bishop//
-	 for the given player specified.
+	//for the given player specified.
 	public Bishop(Player player) {
 		super(player);
 	}

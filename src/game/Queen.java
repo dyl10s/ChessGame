@@ -7,6 +7,7 @@ public class Queen extends ChessPiece {
 
   	public Queen (Player player) {
 		super (player);
+  	}
 
   	@Override
   	public String type () {
@@ -143,7 +144,7 @@ public class Queen extends ChessPiece {
 				if ( move.fromRow > move.toRow )
 				{
 					greater_row = move.fromRow;
-					lesser_row = move.toRow);
+					lesser_row = move.toRow;
 				}
 				else
 				{

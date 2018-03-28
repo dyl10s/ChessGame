@@ -28,7 +28,7 @@ public ChessModel() {
 	board[0][4] = new King(Player.BLACK);
 	board[0][0] = new Rook(Player.BLACK);
 	board[0][7] = new Rook(Player.BLACK);
-	//board[3][0] = new Queen(player.BLACK);
+	board[0][3] = new Queen(Player.BLACK);
 	
 	board[7][1] = new Knight(Player.WHITE);
 	board[7][6] = new Knight(Player.WHITE);
@@ -37,7 +37,7 @@ public ChessModel() {
 	board[7][4] = new King(Player.WHITE);
 	board[7][0] = new Rook(Player.WHITE);
 	board[7][7] = new Rook(Player.WHITE);	
-	//board[3][0] = new Queen(player.WHITE);
+	board[7][3] = new Queen(Player.WHITE);
 	
 }
 
