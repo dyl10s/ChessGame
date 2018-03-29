@@ -119,15 +119,19 @@ public class ChessPanel extends JPanel {
 										
 							hasSelected = false;
 							if (model.isValidMove(m)){
+								displayBoard();
 								model.move(m);
+								displayBoard();
 								model.nextPlayer();
+								displayBoard();
 								model.runAI(model.currentPlayer());
+								displayBoard();
 								model.nextPlayer();
+								displayBoard();
 							}
 							
 						}
 						
-						displayBoard();
 					}
 					
 				}

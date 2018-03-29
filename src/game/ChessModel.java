@@ -238,7 +238,7 @@ public void runAI(Player p) {
 				for (int moveX = 0; moveX < board.length; moveX++){
 					for (int moveY = 0; moveY < board[moveX].length; moveY++){
 						
-						if (board[x][y] != null) {
+						if (board[x][y] != null && board[x][y].player().equals(player)) {
 							
 							Move tempMove = new Move(x, y, moveX, moveY);
 							
@@ -269,7 +269,7 @@ public void runAI(Player p) {
 				for (int moveX = 0; moveX < board.length; moveX++){
 					for (int moveY = 0; moveY < board[moveX].length; moveY++){
 						
-						if (board[x][y] != null) {
+						if (board[x][y] != null && board[x][y].player().equals(player)) {
 							Move tempMove = new Move(x, y, moveX, moveY);
 							
 							if (isValidMove(tempMove)) {
@@ -296,7 +296,7 @@ public void runAI(Player p) {
 				for (int moveX = 0; moveX < board.length; moveX++){
 					for (int moveY = 0; moveY < board[moveX].length; moveY++){
 						
-						if (board[x][y] != null) {
+						if (board[x][y] != null && board[x][y].player().equals(player)) {
 							int startingCount = countColors(p.next());
 							
 							Move tempMove = new Move(x, y, moveX, moveY);
@@ -353,7 +353,13 @@ public void runAI(Player p) {
 			
 			if (isValidMove(randomMove)) {
 				move(randomMove);
-				return;
+				if (inCheck(player)) {
+					for(int i=0; i<board.length; i++)
+						  for(int j=0; j<board[i].length; j++)
+							  board[i][j]=origBoard[i][j];
+				}else {
+					return;
+				}
 			}
 			
 		}
@@ -379,13 +385,24 @@ public void runAI(Player p) {
 	}
 
 	public void nextPlayer() {
+		
+		if (inCheck(player) && isComplete()) {
+			JOptionPane.showMessageDialog(null, player.next().toString() + " is the Winner");
+			System.exit(0);
+		}else if(inCheck(player)){
+			JOptionPane.showMessageDialog(null, player.next().toString() + " is the Winner");
+			System.exit(0);
+		}
+		
 		player = player.next();
 
 		if (inCheck(player) && isComplete()) {
-			JOptionPane.showMessageDialog(null, "Winner");
+			JOptionPane.showMessageDialog(null, player.toString() + " is the Winner");
+			System.exit(0);
 		} else if (inCheck(player)) {
 			JOptionPane.showMessageDialog(null, player.toString() + " is in check!");
 		}
+		
 	}
 
 }
