@@ -120,6 +120,8 @@ public class ChessPanel extends JPanel {
 							if (model.isValidMove(m)){
 								model.move(m);
 								model.nextPlayer();
+								model.runAI(model.currentPlayer());
+								model.nextPlayer();
 							}
 						}
 						
