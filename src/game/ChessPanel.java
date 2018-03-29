@@ -116,6 +116,7 @@ public class ChessPanel extends JPanel {
 						}else{
 							m.toRow = x;
 							m.toColumn = y;
+										
 							hasSelected = false;
 							if (model.isValidMove(m)){
 								model.move(m);
@@ -123,6 +124,7 @@ public class ChessPanel extends JPanel {
 								model.runAI(model.currentPlayer());
 								model.nextPlayer();
 							}
+							
 						}
 						
 						displayBoard();

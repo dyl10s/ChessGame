@@ -51,7 +51,11 @@ public class Pawn extends ChessPiece {
 
 			// Determine which direction we should be moving.
 			if (player() == Player.WHITE) {
-
+				
+				if (row == 6) {
+					firstMove = true;
+				}
+				
 				// Check for a first move instance.
 				if (firstMove && col == toCol && toRow == row - 2 && board[move.toRow][move.toColumn] == null) {
 					result = true;
@@ -81,8 +85,12 @@ public class Pawn extends ChessPiece {
 			else {
 				// -- Check what move call was performed. -- //
 
+				if (row == 1) {
+					firstMove = true;
+				}
+				
 				// Check for a first move instance.
-				if (firstMove && col == toCol && toRow == row + 2) {
+				if (firstMove && col == toCol && toRow == row + 2 && board[move.toRow][move.toColumn] == null) {
 					result = true;
 					// Make sure if the first move cleared that we turn it off.
 					firstMove = false;
