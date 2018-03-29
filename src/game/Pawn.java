@@ -53,7 +53,7 @@ public class Pawn extends ChessPiece {
 			if (player() == Player.WHITE) {
 
 				// Check for a first move instance.
-				if (firstMove && col == toCol && toRow == row - 2) {
+				if (firstMove && col == toCol && toRow == row - 2 && board[move.toRow][move.toColumn] == null) {
 					result = true;
 					// Make sure if the first move cleared that we turn it off.
 					firstMove = false;
