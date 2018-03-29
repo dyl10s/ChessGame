@@ -112,6 +112,7 @@ public class ChessPanel extends JPanel {
 								m.fromRow = x;
 								m.fromColumn = y;
 								hasSelected = true;
+								board[x][y].setBackground(Color.yellow);
 							}
 						}else{
 							m.toRow = x;
