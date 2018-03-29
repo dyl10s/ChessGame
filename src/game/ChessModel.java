@@ -304,7 +304,7 @@ public void runAI(Player p) {
 							if (isValidMove(tempMove)) {
 								move(tempMove);
 							
-							if (startingCount > countColors(p.next())) {
+							if (startingCount > countColors(p.next()) && inCheck(player) == false) {
 									return;
 							}
 							
@@ -325,9 +325,10 @@ public void runAI(Player p) {
 		boolean movedPeice = false;
 		int pX = 0;
 		int pY = 0;
+		int attemptCounter = 0;
 		
 		while (foundPeice == false) {
-			
+			attemptCounter++;
 			pX = (int) Math.round(Math.random() * 7);
 			pY = (int) Math.round(Math.random() * 7);
 			
@@ -342,10 +343,8 @@ public void runAI(Player p) {
 				}
 						  
 			}
-			
-		}
 		
-		while (movedPeice == false) {
+		while (movedPeice == false && foundPeice == true) {
 			
 			int mX = (int) Math.round(Math.random() * 7);
 			int mY = (int) Math.round(Math.random() * 7);
@@ -353,16 +352,20 @@ public void runAI(Player p) {
 			
 			if (isValidMove(randomMove)) {
 				move(randomMove);
-				if (inCheck(player)) {
+				if (inCheck(player) || attemptCounter > 10000) {
 					for(int i=0; i<board.length; i++)
 						  for(int j=0; j<board[i].length; j++)
 							  board[i][j]=origBoard[i][j];
+					foundPeice = false;
+					
 				}else {
 					return;
 				}
 			}
 			
 		}
+		
+	}
 	
 }
 
